@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+
 export const registerSchema = z.object({
   Name: z.string().min(2, "First name must be at least 2 characters"),
   Surname: z.string().min(2, "Last name must be at least 2 characters"),
@@ -15,8 +16,18 @@ export const registerSchema = z.object({
 export type RegisterRequest = z.infer<typeof registerSchema>;
 
 export const loginSchema = z.object({
-  Username: z.string().min(3, "Username is required"),
-  Password: z.string().min(6, "Password is required"),
+  Email: z.string().email("Invalid email address"),
+  Password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
-export type LoginRequest = z.infer<typeof loginSchema>;
+
+export interface LoginRequest {
+  Email: string;
+  Password: string;
+}
+
+export interface AuthResponse {
+  data: { token: string; user: any };
+  isSuccess: boolean;
+  errors: string[];
+}

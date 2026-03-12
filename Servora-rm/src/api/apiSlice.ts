@@ -15,3 +15,4 @@ export const apiSlice = createApi({
   tagTypes: ['Category', 'Ingredient', 'Menu', 'Table', 'Order', 'Reservation'],
   endpoints: () => ({}), // Endpoint-ləri ayrı-ayrı fayllarda "inject" edəcəyik
 });
+
