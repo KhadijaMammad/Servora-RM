@@ -3,7 +3,6 @@ import { apiSlice } from '../api/apiSlice';
 
 export const store = configureStore({
   reducer: {
-    // API slice-ı buraya birləşdiririk
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>

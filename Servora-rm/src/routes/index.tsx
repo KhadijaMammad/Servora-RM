@@ -1,13 +1,19 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { Register } from '../pages/Register';
+import { Login } from '../pages/Login';
 
 export const router = createBrowserRouter([
   {
-    // path: '/login',
-    // element: <Login />,
+    path: '/',
+    element: <Navigate to="/register" replace />, // Ana səhifəyə gələni registerə atır
   },
   {
-    // path: '/register',
-    // element: <Register />,
+    path: '/register',
+    element: <Register />,
+  },
+  {
+    path: '/login',
+    element: <Login />,
   },
   {
     path: '/',
