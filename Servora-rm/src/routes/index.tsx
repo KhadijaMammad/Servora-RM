@@ -7,6 +7,7 @@ import { Register } from "../features/auth/Register";
 import { Login } from "../features/auth/Login";
 import { MenuPage } from "../features/admin/AdminMenu";
 import { CategoryTabs } from "../components/admin/CategoryTabs";
+import { InventoryPage } from "../features/admin/AdminInventory";
 
 export const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/login" replace /> },
@@ -21,7 +22,7 @@ export const router = createBrowserRouter([
       { path: "tables", element: <Tables /> },
       { path: "menu", element: <MenuPage /> },
       { path: "categories", element: <CategoryTabs /> },
-      { path: "inventory", element: <div>Inventory Page</div> },
+      { path: "inventory", element: <InventoryPage  /> },
 
       { path: "staff", element: <div>Staff Management Page</div> },
       { path: "reservations", element: <div>Reservations Page</div> },
