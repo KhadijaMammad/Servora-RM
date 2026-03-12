@@ -12,7 +12,7 @@ export const apiSlice = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Category', 'Ingredient', 'Menu', 'Tables', 'Order', 'Reservation'],
+  tagTypes: ['Categories', 'Ingredient', 'Menu', 'Tables', 'Order', 'Reservation'],
   endpoints: () => ({}), // Endpoint-ləri ayrı-ayrı fayllarda "inject" edəcəyik
 });
 

@@ -2,11 +2,12 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
-import { Input } from '../components/ui/Input';
-import { Button } from '../components/ui/Button';
-import { type LoginRequest, loginSchema } from '../types/auth'; 
-import { useLoginMutation } from '../api/authApi';
-import { setCredentials } from '../store/authSlice'; // Slice-dan import etməliyik
+import { useLoginMutation } from '../../api/authApi';
+import { loginSchema, type LoginRequest } from '../../types/auth';
+import { setCredentials } from '../../store/authSlice';
+import { Input } from '../../components/ui/Input';
+import { Button } from '../../components/ui/Button';
+
 
 export const Login = () => {
   const dispatch = useDispatch();

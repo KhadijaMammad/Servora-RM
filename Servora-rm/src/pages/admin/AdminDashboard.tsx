@@ -11,7 +11,7 @@ export const AdminDashboard = () => {
   const totalTables = tables.length;
   
   const reservations = reservationsData?.data || [];
-  const todayBookings = reservations.length; // Gələcəkdə "bugünkü tarix" filtri əlavə edəcəyik
+  const todayBookings = reservations.length; 
 
   return (
     <div className="space-y-8">

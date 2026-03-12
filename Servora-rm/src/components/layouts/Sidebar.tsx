@@ -4,6 +4,8 @@ const menuItems = [
   { path: '/admin', name: 'Dashboard' },
   { path: '/admin/tables', name: 'Table Management' },
   { path: '/admin/menu', name: 'Menu Management' },
+  { path: '/admin/categories', name: 'Categories' }, 
+  { path: '/admin/inventory', name: 'Inventory' },  
   { path: '/admin/staff', name: 'Staff Management' },
   { path: '/admin/reservations', name: 'Reservations' },
 ];

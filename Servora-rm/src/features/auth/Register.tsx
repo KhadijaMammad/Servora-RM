@@ -1,11 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import toast from 'react-hot-toast';
-import { Input } from '../components/ui/Input';
-import { Button } from '../components/ui/Button';
-import { registerSchema, type RegisterRequest } from '../types/auth';
-import { useRegisterMutation } from '../api/authApi';
+
 import { useNavigate } from 'react-router-dom';
+import { useRegisterMutation } from '../../api/authApi';
+import { registerSchema, type RegisterRequest } from '../../types/auth';
+import toast from 'react-hot-toast';
+import { Input } from '../../components/ui/Input';
+import { Button } from '../../components/ui/Button';
 
 export const Register = () => {
   const [register, { isLoading }] = useRegisterMutation();
