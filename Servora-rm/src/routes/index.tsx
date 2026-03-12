@@ -1,29 +1,27 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
-import { Register } from '../pages/Register';
-import { Login } from '../pages/Login';
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import { Register } from "../pages/Register";
+import { Login } from "../pages/Login";
+import { AdminLayout } from "../components/layouts/AdminLayout";
+import { AdminDashboard } from "../pages/admin/AdminDashboard";
+import { Tables } from "../features/admin/AdminTables";
 
 export const router = createBrowserRouter([
+  { path: "/", element: <Navigate to="/login" replace /> },
+  { path: "/register", element: <Register /> },
+  { path: "/login", element: <Login /> },
+
   {
-    path: '/',
-    element: <Navigate to="/register" replace />, // Ana səhifəyə gələni registerə atır
-  },
-  {
-    path: '/register',
-    element: <Register />,
-  },
-  {
-    path: '/login',
-    element: <Login />,
-  },
-  {
-    path: '/',
-    // element: <MainLayout />, // Bütün admin/waiter/kitchen səhifələri bunun içində olacaq
+    path: "/admin",
+    element: <AdminLayout />,
     children: [
-      {
-        path: 'admin',
-        // element: <AdminDashboard />,
-      },
-      // Bura digər rol-əsaslı səhifələri əlavə edəcəyik
+      { index: true, element: <AdminDashboard /> },
+      { path: "tables", element: <Tables /> },
+      { path: "menu", element: <div>Menu Management Page</div> },
+      { path: "staff", element: <div>Staff Management Page</div> },
+      { path: "reservations", element: <div>Reservations Page</div> },
     ],
   },
+
+  // Səhv səhifə yönləndirməsi (Fallback)
+  { path: "*", element: <Navigate to="/login" replace /> },
 ]);
