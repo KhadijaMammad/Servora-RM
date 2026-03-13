@@ -13,6 +13,7 @@ import { OrderCreatorPage } from "../features/waiter/order/OrderCreatorPage";
 import { KitchenDashboard } from "../features/kitchen/KitchenDashboard";
 import { OrderMenu } from "../features/waiter/OrderMenu";
 import { OrderHistory } from "../components/waiter/OrdersPage";
+import { AdminOrder } from "../features/admin/AdminOrder";
 
 export const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/login" replace /> },
@@ -29,6 +30,7 @@ export const router = createBrowserRouter([
       { path: "categories", element: <CategoryTabs /> },
       { path: "inventory", element: <InventoryPage /> },
       { path: "staff", element: <StaffPage /> },
+      {path: "order", element: <AdminOrder />},
       { path: "reservations", element: <div>Reservations Page</div> },
     ],
   },
