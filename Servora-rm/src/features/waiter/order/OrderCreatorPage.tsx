@@ -25,27 +25,26 @@ export const OrderCreatorPage = () => {
   const handlePlaceOrder = async () => {
     if (!selectedTable) return;
 
-   const payload = {
-    tableId: selectedTable.id, 
-    tableNumber: selectedTable.tableNumber?.toString() || "0",
-    waiterId: "c6ad736b-ac17-4ddb-87e0-985f63620690",
-    notes: "Qeyd yoxdur",
-    items: cart.map((c) => ({
-      menuItemId: c.menuItemId, 
-      quantity: Number(c.quantity),
-      specialInstructions: "yoxdur" 
-    }))
-  };
+ const payload = {
+      tableId: selectedTable.id, 
+      tableNumber: selectedTable.tableNumber?.toString() || "0",
+      waiterId: "c6ad736b-ac17-4ddb-87e0-985f63620690",
+      notes: "yoxdur",
+      items: cart.map((c) => ({
+        menuItemId: c.menuItemId, 
+        quantity: Number(c.quantity),
+        specialInstructions: "yoxdur" 
+      }))
+    };
 
     try {
       await createOrder(payload).unwrap();
-      alert("Sifariş uğurla göndərildi!");
+      alert("Sifariş mətbəxə uğurla göndərildi!");
       setCart([]);
       setSelectedTable(null);
-      navigate("/waiter/orders"); 
+      navigate("/waiter/kitchen"); // Və ya mətbəxə keçid et
     } catch (e: any) {
-      console.error("Xəta:", e);
-      alert("Sifariş göndərilərkən xəta baş verdi!");
+      alert("Xəta: " + (e?.data?.message || "Sifariş göndərilə bilmədi"));
     }
   };
 
