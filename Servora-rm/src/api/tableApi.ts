@@ -37,9 +37,9 @@ export const tableApi = apiSlice.injectEndpoints({
       query: ({ id, status }) => ({
         url: `/Table/${id}/status`,
         method: "POST",
-        body: status,
+        params: { status }, // Body əvəzinə params istifadə edirik
       }),
-      invalidatesTags: (_result, _error, { }) => [{ type: "Tables" as const }],
+      invalidatesTags: [{ type: "Tables" }],
     }),
   }),
 });
