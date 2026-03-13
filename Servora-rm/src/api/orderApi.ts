@@ -29,7 +29,7 @@ export const orderApi = apiSlice.injectEndpoints({
       invalidatesTags: ["Orders"],
     }),
     getAllOrders: builder.query<any, void>({
-      query: () => "/Order", // Bəlkə də sadəcə "/Order"-dir, Swagger-də yoxla!
+      query: () => "/Order", 
       providesTags: ["Orders"],
     }),
   }),
