@@ -15,7 +15,7 @@ export const OrderHistory = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://servora.api.nantech.az/api/Payment/create/${orderId}?redirectUrl=http://localhost:5173/waiter/orders`,
+        `https://servora.api.nantech.az/api/Payment/create/${orderId}?redirectUrl=https://servora-rm.vercel.app/`,
         {
           method: "POST",
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
