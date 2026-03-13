@@ -1,4 +1,6 @@
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/authSlice";
 
 // Rollara görə menyuları ayırdıq
 const roleMenus = {
@@ -7,7 +9,7 @@ const roleMenus = {
     { path: "/admin/tables", name: "Table Management" },
     { path: "/admin/menu", name: "Menu Management" },
     { path: "/admin/inventory", name: "Inventory" },
-    {path: "/admin/order", name: "Order Management"},
+    { path: "/admin/order", name: "Order Management" },
 
     { path: "/admin/staff", name: "Staff Management" },
     { path: "/admin/reservations", name: "Reservations" },
@@ -21,10 +23,15 @@ const roleMenus = {
 };
 
 interface SidebarProps {
-  role: "admin" | "waiter";
+  role: "admin" | "waiter"; // Əgər "kitchen" rolunu da əlavə etmək istəyirsinizsə, onu da daxil edin
 }
 
 export const Sidebar = ({ role }: SidebarProps) => {
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   const currentMenu = roleMenus[role];
 
   return (
@@ -59,6 +66,7 @@ export const Sidebar = ({ role }: SidebarProps) => {
       </div>
 
       {/* Aşağıdakı Switch Düyməsi */}
+
       <div className="px-2">
         <NavLink
           to={role === "admin" ? "/waiter" : "/admin"}
@@ -67,6 +75,15 @@ export const Sidebar = ({ role }: SidebarProps) => {
           {role === "admin" ? "Switch to Waiter" : "Switch to Admin"}
         </NavLink>
       </div>
+
+      <NavLink to="/login" onClick={handleLogout} className="px-2 mt-4">
+        <button
+          onClick={handleLogout}
+          className="w-full py-3 px-2 bg-red-500 text-white rounded-xl text-xs font-semibold hover:bg-red-600 transition-colors"
+        >
+          Logout
+        </button>
+      </NavLink>
     </aside>
   );
 };
