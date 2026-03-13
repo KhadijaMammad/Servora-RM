@@ -1,31 +1,24 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-
-interface AuthState {
-  token: string | null;
-  user: any | null;
-}
-
-const initialState: AuthState = {
-  token: null,
-  user: null,
-};
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 const authSlice = createSlice({
-  name: 'auth',
-  initialState,
+  name: "auth",
+  initialState: { 
+    token: localStorage.getItem("token") || null, 
+    user: null 
+  },
   reducers: {
-    setCredentials: (state, action: PayloadAction<{ token: string, user: any }>) => {
+    setCredentials: (state, action: PayloadAction<{ token: string; user: any }>) => {
       state.token = action.payload.token;
       state.user = action.payload.user;
+      localStorage.setItem("token", action.payload.token); // Tokeni brauzerə yazır
     },
     logout: (state) => {
       state.token = null;
       state.user = null;
+      localStorage.removeItem("token");
     },
   },
 });
 
-// BU SƏTİR ÇOX VACİBDİR
 export const { setCredentials, logout } = authSlice.actions;
-
 export default authSlice.reducer;

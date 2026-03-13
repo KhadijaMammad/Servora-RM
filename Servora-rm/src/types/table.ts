@@ -3,7 +3,7 @@ export interface Table {
   id: string;
   tableNumber: string;
   capacity: number;
-  status: string;
+  status: number;
   location: string;
   isActive: boolean;
 }

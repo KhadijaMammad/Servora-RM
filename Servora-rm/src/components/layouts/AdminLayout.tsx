@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 
-export const AdminLayout = () => {
+export const MainLayout = ({ role }: { role: 'admin' | 'waiter' }) => {
   return (
     <div className="flex bg-slate-50 min-h-screen">
-      <Sidebar />
+      <Sidebar role={role} />
       
       <main className="flex-1 md:ml-64 p-8">
         <div className="max-w-full">

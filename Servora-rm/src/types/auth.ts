@@ -31,3 +31,13 @@ export interface AuthResponse {
   isSuccess: boolean;
   errors: string[];
 }
+
+export interface User {
+  id: string;
+  name: string;
+  surname: string;
+  role: string;
+  mail: string;
+}
+
+export const ROLES = ['Admin', 'Waiter', 'Kitchen', 'Warehouse', 'Member'];

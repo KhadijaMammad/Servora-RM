@@ -8,10 +8,22 @@ export const menuApi = apiSlice.injectEndpoints({
       query: () => "/MenuItem",
       providesTags: ["Menu"],
     }),
-    addMenuItem: builder.mutation<any, Omit<MenuItem, "id">>({
-      query: (body) => ({ url: "/MenuItem", method: "POST", body }),
+    addMenuItem: builder.mutation<any, FormData>({
+      query: (formData) => ({
+        url: "/MenuItem",
+        method: "POST",
+        body: formData,
+      }),
       invalidatesTags: ["Menu"],
     }),
+    editMenuItem: builder.mutation<any, { id: string; body: any }>({
+  query: ({ id, body }) => ({
+    url: `/MenuItem/${id}`,
+    method: "PUT",
+    body: body, // Birbaşa JSON obyektini göndəririk
+  }),
+  invalidatesTags: ["Menu"],
+}),
     // Categories
     getCategories: builder.query<{ data: Category[] }, void>({
       query: () => "/Category",
@@ -40,4 +52,5 @@ export const {
   useAddCategoryMutation,
   useToggleCategoryStatusMutation,
   useAddMenuItemMutation,
+  useEditMenuItemMutation,
 } = menuApi;

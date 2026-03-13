@@ -1,6 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
-import { AdminLayout } from "../components/layouts/AdminLayout";
+import { MainLayout } from "../components/layouts/AdminLayout";
 import { AdminDashboard } from "../pages/admin/AdminDashboard";
 import { Tables } from "../features/admin/AdminTables";
 import { Register } from "../features/auth/Register";
@@ -8,6 +8,11 @@ import { Login } from "../features/auth/Login";
 import { MenuPage } from "../features/admin/AdminMenu";
 import { CategoryTabs } from "../components/admin/CategoryTabs";
 import { InventoryPage } from "../features/admin/AdminInventory";
+import { StaffPage } from "../features/admin/Staff";
+import { OrderCreatorPage } from "../features/waiter/order/OrderCreatorPage";
+import { KitchenDashboard } from "../features/kitchen/KitchenDashboard";
+import { OrderMenu } from "../features/waiter/OrderMenu";
+import { OrderHistory } from "../components/waiter/OrdersPage";
 
 export const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/login" replace /> },
@@ -16,19 +21,35 @@ export const router = createBrowserRouter([
 
   {
     path: "/admin",
-    element: <AdminLayout />,
+    element: <MainLayout role="admin" />,
     children: [
       { index: true, element: <AdminDashboard /> },
       { path: "tables", element: <Tables /> },
       { path: "menu", element: <MenuPage /> },
       { path: "categories", element: <CategoryTabs /> },
-      { path: "inventory", element: <InventoryPage  /> },
-
-      { path: "staff", element: <div>Staff Management Page</div> },
+      { path: "inventory", element: <InventoryPage /> },
+      { path: "staff", element: <StaffPage /> },
       { path: "reservations", element: <div>Reservations Page</div> },
     ],
   },
 
-  // Səhv səhifə yönləndirməsi (Fallback)
+  // Waiter Routes
+  {
+    path: "/waiter",
+    element: <MainLayout role="waiter" />,
+    children: [
+      { index: true, element: <OrderCreatorPage /> },
+      { path: "kitchen", element: <KitchenDashboard /> },
+      {
+        path: "menu",
+        element: <OrderMenu />,
+      },
+      {
+        path: "orders",
+        element: <OrderHistory />,
+      },
+    ],
+  },
+
   { path: "*", element: <Navigate to="/login" replace /> },
 ]);

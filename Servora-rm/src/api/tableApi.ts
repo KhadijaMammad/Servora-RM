@@ -7,7 +7,7 @@ export const tableApi = apiSlice.injectEndpoints({
       providesTags: ["Tables"],
     }),
     getReservations: builder.query<{ data: any[] }, void>({
-      query: () => "/Reservation", // Backend endpointinə uyğun dəyiş
+      query: () => "/Reservation",
       providesTags: ["Reservation"],
     }),
     addTable: builder.mutation<any, any>({
@@ -33,6 +33,14 @@ export const tableApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Tables"],
     }),
+    updateTableStatus: builder.mutation<any, { id: string; status: number }>({
+      query: ({ id, status }) => ({
+        url: `/Table/${id}/status`,
+        method: "POST",
+        body: status,
+      }),
+      invalidatesTags: (_result, _error, { }) => [{ type: "Tables" as const }],
+    }),
   }),
 });
 
@@ -42,4 +50,5 @@ export const {
   useUpdateTableMutation,
   useDeleteTableMutation,
   useGetReservationsQuery,
+  useUpdateTableStatusMutation,
 } = tableApi;
