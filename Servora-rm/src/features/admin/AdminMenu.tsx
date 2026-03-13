@@ -4,6 +4,7 @@ import {
   useGetCategoriesQuery,
   useAddMenuItemMutation,
   useEditMenuItemMutation,
+  useDeleteMenuItemMutation,
 } from "../../api/menuApi";
 import { CategoryTabs } from "../../components/admin/CategoryTabs";
 import { MenuCard } from "../../components/admin/MenuCards";
@@ -18,6 +19,7 @@ export const MenuPage = () => {
   const { data: catData } = useGetCategoriesQuery();
   const [addMenuItem] = useAddMenuItemMutation();
   const [editMenuItem] = useEditMenuItemMutation();
+  const [deleteMenuItem] = useDeleteMenuItemMutation();
 
   const openAddModal = () => { setEditingItem(null); setIsModalOpen(true); };
   const openEditModal = (item: MenuItem) => { setEditingItem(item); setIsModalOpen(true); };
@@ -25,8 +27,6 @@ export const MenuPage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-
-    // Backend-in DTO modelinə uyğun obyekt
     const body = {
       Name: formData.get("Name"),
       CategoryId: formData.get("CategoryId"),
@@ -41,18 +41,28 @@ export const MenuPage = () => {
       if (editingItem) {
         await editMenuItem({ id: editingItem.id, body }).unwrap();
       } else {
-        // Yeni əlavə zamanı hələ də FormData istifadə edirik (şəkil üçün)
         const fd = new FormData();
         Object.entries(body).forEach(([key, val]) => fd.append(key, val as any));
         const fileInput = e.currentTarget.elements.namedItem("ImageUrl") as HTMLInputElement;
         if (fileInput?.files?.[0]) fd.set("ImageUrl", fileInput.files[0]);
-        
         await addMenuItem(fd).unwrap();
       }
       setIsModalOpen(false);
       setEditingItem(null);
     } catch (err: any) {
       alert("Xəta: " + JSON.stringify(err.data?.errors || err.message));
+    }
+  };
+
+  const handleDelete = async () => {
+    if (editingItem && window.confirm("Bu yeməyi silmək istədiyinizə əminsiniz?")) {
+      try {
+        await deleteMenuItem(editingItem.id).unwrap();
+        setIsModalOpen(false);
+        setEditingItem(null);
+      } catch (err) {
+        alert("Silinərkən xəta baş verdi!");
+      }
     }
   };
 
@@ -74,6 +84,7 @@ export const MenuPage = () => {
       {isModalOpen && (
         <div className="fixed inset-0 z-60 bg-black/30 flex items-center justify-center p-4">
           <form onSubmit={handleSubmit} className="bg-white p-8 rounded-3xl w-full max-w-lg space-y-4">
+            <h3 className="text-xl font-bold">{editingItem ? "Edit Dish" : "Add New Dish"}</h3>
             <input name="Name" defaultValue={editingItem?.Name} placeholder="Dish Name" className="w-full p-3 bg-slate-50 rounded-xl" required />
             <select name="CategoryId" defaultValue={editingItem?.CategoryId} className="w-full p-3 bg-slate-50 rounded-xl" required>
               {catData?.data?.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -82,11 +93,12 @@ export const MenuPage = () => {
             <input name="Ingredients" defaultValue={editingItem?.Ingredients?.join(", ")} placeholder="Ingredients (comma separated)" className="w-full p-3 bg-slate-50 rounded-xl" required />
             <input name="Description" defaultValue={editingItem?.Description} placeholder="Description" className="w-full p-3 bg-slate-50 rounded-xl" required />
             <input name="PreparationTime" type="number" defaultValue={editingItem?.PreparationTime} placeholder="Prep Time" className="w-full p-3 bg-slate-50 rounded-xl" required />
-            <input name="ImageUrl" type={editingItem ? "text" : "file"} defaultValue={editingItem ? editingItem.ImageUrl : ""} className="w-full p-3 bg-slate-50 rounded-xl" required />
+            <input name="ImageUrl" type={editingItem ? "text" : "file"} placeholder="Image URL / File" className="w-full p-3 bg-slate-50 rounded-xl" required={!editingItem} />
             
             <div className="flex gap-4">
               <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 text-slate-500">Cancel</button>
-              <button type="submit" className="flex-1 bg-blue-600 text-white py-3 rounded-xl">Save</button>
+              {editingItem && <button type="button" onClick={handleDelete} className="bg-red-50 text-red-600 px-4 rounded-xl font-bold">Delete</button>}
+              <button type="submit" className="flex-2 bg-blue-600 text-white py-3 rounded-xl">Save</button>
             </div>
           </form>
         </div>

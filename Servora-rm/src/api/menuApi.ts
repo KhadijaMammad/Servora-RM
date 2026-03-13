@@ -16,14 +16,18 @@ export const menuApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Menu"],
     }),
+    deleteMenuItem: builder.mutation<void, string>({
+      query: (id) => ({ url: `/MenuItem/${id}`, method: "DELETE" }),
+      invalidatesTags: ["Menu"],
+    }),
     editMenuItem: builder.mutation<any, { id: string; body: any }>({
-  query: ({ id, body }) => ({
-    url: `/MenuItem/${id}`,
-    method: "PUT",
-    body: body, // Birbaşa JSON obyektini göndəririk
-  }),
-  invalidatesTags: ["Menu"],
-}),
+      query: ({ id, body }) => ({
+        url: `/MenuItem/${id}`,
+        method: "PUT",
+        body: body, // Birbaşa JSON obyektini göndəririk
+      }),
+      invalidatesTags: ["Menu"],
+    }),
     // Categories
     getCategories: builder.query<{ data: Category[] }, void>({
       query: () => "/Category",
@@ -53,4 +57,5 @@ export const {
   useToggleCategoryStatusMutation,
   useAddMenuItemMutation,
   useEditMenuItemMutation,
+  useDeleteMenuItemMutation,
 } = menuApi;
