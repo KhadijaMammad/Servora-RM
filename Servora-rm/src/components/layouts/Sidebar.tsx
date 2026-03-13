@@ -12,6 +12,7 @@ const roleMenus = {
     { path: "/admin/order", name: "Order Management" },
 
     { path: "/admin/staff", name: "Staff Management" },
+    {path: "/admin/reports", name: "Reports"},
     { path: "/admin/reservations", name: "Reservations" },
   ],
   waiter: [

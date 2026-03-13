@@ -14,6 +14,7 @@ import { KitchenDashboard } from "../features/kitchen/KitchenDashboard";
 import { OrderMenu } from "../features/waiter/OrderMenu";
 import { OrderHistory } from "../components/waiter/OrdersPage";
 import { AdminOrder } from "../features/admin/AdminOrder";
+import { ReportsPage } from "../features/admin/AdminReports";
 
 export const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/login" replace /> },
@@ -31,6 +32,7 @@ export const router = createBrowserRouter([
       { path: "inventory", element: <InventoryPage /> },
       { path: "staff", element: <StaffPage /> },
       {path: "order", element: <AdminOrder />},
+      {path: "reports", element: <ReportsPage />},
       { path: "reservations", element: <div>Reservations Page</div> },
     ],
   },
